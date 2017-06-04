@@ -1,0 +1,21 @@
+game atributos:
+code
+title
+publisher
+category
+platform
+size GB
+release date
+price
+stock
+format
+description
+
+#Requisitos:
+mostrar jogos na tabela de jogos /games
+1-limitar página /games/search à 10 registros - Pageable
+2-ver post spring-mvc/thymeleaf/security/mysql
+3-criar página tabela de jogos, mostrar todos jogos
+
+*adicionar cadastro do usuário
+*adicionar segurança no final

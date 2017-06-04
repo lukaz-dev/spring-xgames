@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="pt"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <meta charset="UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>XGames</title>
+
+    <link rel="stylesheet" type="text/css" th:href="@{/layout/stylesheets/vendors.min.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/layout/stylesheets/algaworks.min.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/layout/stylesheets/application.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/stylesheets/layout-default.css}"/>
+</head>
+<body>
+<div class="aw-layout-page">
+
+    <nav class="navbar  navbar-fixed-top  navbar-default  js-sticky-reference" id="main-navbar">
+        <div class="container-fluid">
+
+            <div class="navbar-header">
+                <a class="navbar-brand  hidden-xs" th:href="@{/games/search}">
+                    <img alt="xgames" th:src="@{/layout/images/xgames-logo.png}"/>
+                </a>
+
+                <ul class="nav  navbar-nav">
+                    <li>
+                        <a href="#" class="js-sidebar-toggle"><i class="glyphicon glyphicon-menu-hamburger"></i></a>
+                    </li>
+                </ul>
+            </div>
+
+            <ul class="nav navbar-nav  navbar-right">
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                       aria-expanded="false">
+                        <i class="glyphicon glyphicon-user"></i>
+                    </a>
+
+                    <ul class="dropdown-menu">
+                        <li>
+                            <div class="aw-logged-user">
+                                <img src="https://api.adorable.io/avatars/80/joaodascouves"
+                                     width="80" height="80" alt="João das Couves" class="aw-logged-user__picture"/>
+                                <span class="aw-logged-user__name">Usuário</span>
+                            </div>
+                        </li>
+                        <li role="separator" class="divider"></li>
+                        <li><a href="#">Meu perfil</a></li>
+                        <li><a href="#">Alterar senha</a></li>
+                        <li><a href="#">Pagamentos</a></li>
+                    </ul>
+                </li>
+
+                <li>
+                    <a href="#"><em class="glyphicon glyphicon-log-out"></em></a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <aside class="aw-layout-sidebar  js-sidebar">
+        <div class="aw-layout-sidebar__content">
+
+            <nav class="aw-menu  js-menu">
+                <ul class="aw-menu__list">
+
+                    <li class="aw-menu__item" th:classappend="${dashActive} ? is-active">
+                        <a th:href="@{/home}"><i class="fa  fa-fw  fa-home"></i><span>Dashboard</span></a>
+                    </li>
+
+                    <li class="aw-menu__item">
+                        <a href="#">
+                            <i class="fa  fa-fw  fa-gamepad"></i><span>Jogos</span>
+                            <i class="aw-menu__navigation-icon  fa"></i>
+                        </a>
+
+                        <ul class="aw-menu__list  aw-menu__list--sublist">
+                            <li class="aw-menu__item  aw-menu__item--link" th:classappend="${tableActive} ? is-active">
+                                <a th:href="@{/games}"><i class="glyphicon glyphicon-list-alt"></i>Tabela de jogos</a>
+                            </li>
+                            <li class="aw-menu__item  aw-menu__item--link" th:classappend="${newActive} ? is-active">
+                                <a th:href="@{/games/new}"><i class="glyphicon glyphicon-plus"></i>Cadastro de jogo</a>
+                            </li>
+                            <li class="aw-menu__item  aw-menu__item--link" th:classappend="${searchActive} ? is-active">
+                                <a th:href="@{/games/search}"><i class="glyphicon glyphicon-search"></i>Pesquisa de jogos</a>
+                            </li>
+                        </ul>
+                    </li>
+
+                </ul>
+            </nav>
+
+        </div>
+    </aside>
+
+    <section class="aw-layout-content  js-content" layout:fragment="content"></section>
+
+    <footer class="aw-layout-footer  js-content">
+        <div class="container-fluid">
+            <span class="aw-footer-disclaimer">&copy; 2017 XGames. Todos os direitos reservados.
+                Criado por <a target="_blank" href="https://github.com/lukaz-dev">Lukaz Oliveira</a></span>
+        </div>
+    </footer>
+
+</div>
+
+<script th:src="@{/layout/javascripts/vendors.min.js}"></script>
+<script th:src="@{/layout/javascripts/algaworks.min.js}"></script>
+<script th:src="@{/javascripts/vendors/jquery.mask.min.js}"></script>
+
+<th:block layout:fragment="javascript-extra"></th:block>
+
+</body>
+</html>

@@ -1,0 +1,36 @@
+#table-games {
+    font-size: 15px;
+}
+.table>tbody>tr>td {
+    vertical-align: middle;
+}
+
+.table-games-col-details {
+    width: 50px;
+    text-align: center;
+}
+.table-games-col-platform {
+    min-width: 90px;
+    text-align: center;
+}
+.table-games-col-price {
+    min-width: 90px;
+    text-align: center;
+}
+.table-games-col-stock {
+    min-width: 60px;
+    text-align: center;
+}
+.table-games-col-actions {
+    width: 100px;
+    min-width: 90px;
+    text-align: center;
+}
+#table-game-details tr td {
+    text-align: center;
+    font-weight: bold;
+    font-size: 15px;
+}
+#records {
+    font-size: 14px;
+}
