@@ -1,6 +1,3 @@
-$('.mask-price-min').mask('0.000.000,00', {reverse: true});
-$('.mask-price-max').mask('0.000.000,00', {reverse: true});
-
 $('#confirmEditModal').on('show.bs.modal', function (event) {
     var button = $(event.relatedTarget);
     var title = button.data('title');

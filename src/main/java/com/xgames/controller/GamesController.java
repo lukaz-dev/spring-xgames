@@ -10,6 +10,8 @@ import com.xgames.service.SaveGameService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -36,7 +38,7 @@ public class GamesController {
     @GetMapping
     public ModelAndView listGames() {
         ModelAndView mv = new ModelAndView("/games/table-games");
-        // limitar os registros
+        // limitar os registros, paginação (Pageable)
         mv.addObject("games", gamesRepository.findAll());
         mv.addObject("tableActive", true);
 
@@ -76,9 +78,16 @@ public class GamesController {
     @GetMapping("/search")
     public ModelAndView search(GameFilter gameFilter) {
         ModelAndView mv = new ModelAndView("/games/search-games");
-        List<Game> gamesFound = saveGameService.filter(gameFilter);
         mv.addObject("platforms", Platform.values());
         mv.addObject("searchActive", true);
+        return mv;
+    }
+
+    @PostMapping("/search")
+    public ModelAndView searchGames(GameFilter gameFilter) {
+        System.out.println(gameFilter);
+        ModelAndView mv = new ModelAndView("/games/search-games::gamesTable");
+        List<Game> gamesFound = saveGameService.filter(gameFilter);
         mv.addObject("games", gamesFound);
         mv.addObject("numberOfRecords", gamesFound.size());
         return mv;
@@ -102,9 +111,12 @@ public class GamesController {
     @DeleteMapping("/{code}")
     public ModelAndView deleteGame(@PathVariable Long code) {
         logger.info("Removing game with code: {}", code);
-        ModelAndView mv = new ModelAndView("games/search-games::gamesTable");
+        ModelAndView mv = new ModelAndView("/games/search-games::gamesTable");
         gamesRepository.delete(code);
-        mv.addObject("games", gamesRepository.findAll(new Sort("title", "platform", "price")));
+        Page<Game> gamesFound = gamesRepository.findAll(new PageRequest(0, 10,
+                new Sort(Sort.Direction.ASC, "title", "platform", "price")));
+        mv.addObject("games", gamesFound);
+        mv.addObject("numberOfRecords", gamesFound.getSize());
         return mv;
     }
 }

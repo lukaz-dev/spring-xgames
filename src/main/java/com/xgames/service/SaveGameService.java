@@ -7,6 +7,8 @@ import com.xgames.repository.GamesRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
@@ -38,6 +40,7 @@ public class SaveGameService {
 
     public List<Game> filter(GameFilter gameFilter) {
         Sort sort = new Sort(Sort.Direction.ASC, "title", "platform", "price");
+        Pageable topTen = new PageRequest(0, 10, sort);
         String gameTitle = gameFilter.getTitle() == null ? "%" : gameFilter.getTitle();
         Platform gamePlatform = gameFilter.getPlatform();
         BigDecimal min = gameFilter.getMinPrice();
@@ -49,17 +52,17 @@ public class SaveGameService {
             if (min != null && max != null) {
                 logger.info("Searching by title '{}', platform '{}', minPrice '{}' and maxPrice '{}'", gameTitle,
                         gamePlatform, min, max);
-                games = gamesRepository.findByTitleAndPlatformAndPrices(gameTitle, gamePlatform, min, max, sort);
+                games = gamesRepository.findByTitleAndPlatformAndPrices(gameTitle, gamePlatform, min, max, topTen);
             } else {
                 logger.info("Searching by title '{}' and platform '{}'", gameTitle, gamePlatform);
-                games = gamesRepository.findDistinctByTitleContainingAndPlatform(gameTitle, gamePlatform, sort);
+                games = gamesRepository.findDistinctByTitleContainingAndPlatform(gameTitle, gamePlatform, topTen);
             }
         } else if (min != null && max != null) {
             logger.info("Searching by title '{}', minPrice '{}' and maxPrice '{}'", gameTitle, min, max);
-            games = gamesRepository.findByTitleAndPrices(gameTitle, min, max, sort);
+            games = gamesRepository.findByTitleAndPrices(gameTitle, min, max, topTen);
         } else {
             logger.info("Searching only by title '{}'", gameTitle);
-            games = gamesRepository.findByTitleContaining(gameTitle, sort);
+            games = gamesRepository.findByTitleContaining(gameTitle, topTen);
         }
 
         logger.info("Number of records found: " + games.size());

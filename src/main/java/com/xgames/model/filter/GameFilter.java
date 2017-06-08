@@ -47,4 +47,14 @@ public class GameFilter {
     public void setMaxPrice(BigDecimal maxPrice) {
         this.maxPrice = maxPrice;
     }
+
+    @Override
+    public String toString() {
+        return "GameFilter{" +
+                "title='" + title + '\'' +
+                ", platform=" + platform +
+                ", minPrice=" + minPrice +
+                ", maxPrice=" + maxPrice +
+                '}';
+    }
 }

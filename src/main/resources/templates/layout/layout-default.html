@@ -9,6 +9,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <title>XGames</title>
 
+    <meta name="theme-color" content="#980003" />
+    <link rel="icon" href="http://a2.espncdn.com/xgames/deploy/prod/img/X/icons/favicon-16x16.png">
     <link rel="stylesheet" type="text/css" th:href="@{/layout/stylesheets/vendors.min.css}"/>
     <link rel="stylesheet" type="text/css" th:href="@{/layout/stylesheets/algaworks.min.css}"/>
     <link rel="stylesheet" type="text/css" th:href="@{/layout/stylesheets/application.css}"/>
@@ -82,7 +84,7 @@
                                 <a th:href="@{/games}"><i class="glyphicon glyphicon-list-alt"></i>Tabela de jogos</a>
                             </li>
                             <li class="aw-menu__item  aw-menu__item--link" th:classappend="${newActive} ? is-active">
-                                <a th:href="@{/games/new}"><i class="glyphicon glyphicon-plus"></i>Cadastro de jogo</a>
+                                <a th:href="@{/games/new}"><i class="glyphicon glyphicon-plus-sign"></i>Cadastro de jogo</a>
                             </li>
                             <li class="aw-menu__item  aw-menu__item--link" th:classappend="${searchActive} ? is-active">
                                 <a th:href="@{/games/search}"><i class="glyphicon glyphicon-search"></i>Pesquisa de jogos</a>

@@ -12,10 +12,8 @@ format
 description
 
 #Requisitos:
-mostrar jogos na tabela de jogos /games
-1-limitar página /games/search à 10 registros - Pageable
-2-ver post spring-mvc/thymeleaf/security/mysql
-3-criar página tabela de jogos, mostrar todos jogos
+3-criar página tabela de jogos, mostrar todos jogos, usar paginação (Pageable)
 
+*adicionar carregamento de imagem do jogo
 *adicionar cadastro do usuário
 *adicionar segurança no final
