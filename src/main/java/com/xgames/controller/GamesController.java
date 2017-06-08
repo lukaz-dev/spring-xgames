@@ -6,7 +6,7 @@ import com.xgames.model.Game;
 import com.xgames.model.Platform;
 import com.xgames.model.filter.GameFilter;
 import com.xgames.repository.GamesRepository;
-import com.xgames.service.SaveGameService;
+import com.xgames.service.GameService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,17 +33,7 @@ public class GamesController {
     private GamesRepository gamesRepository;
 
     @Autowired
-    private SaveGameService saveGameService;
-
-    @GetMapping
-    public ModelAndView listGames() {
-        ModelAndView mv = new ModelAndView("/games/table-games");
-        // limitar os registros, paginação (Pageable)
-        mv.addObject("games", gamesRepository.findAll());
-        mv.addObject("tableActive", true);
-
-        return mv;
-    }
+    private GameService gameService;
 
     @GetMapping("/new")
     public ModelAndView newGame(Game game) {
@@ -61,7 +51,7 @@ public class GamesController {
         if (result.hasErrors()) {
             return newGame(game);
         }
-        if (saveGameService.gameAlreadyExists(game)) {
+        if (gameService.gameAlreadyExists(game)) {
             result.rejectValue("title", "error.game", "Já existe um jogo com o título '" +
                     game.getTitle() + "', plataforma '" + game.getPlatform().getDescription() +
                     "', e mídia '" + game.getFormat().getDescription() + "' cadastrados!");
@@ -70,7 +60,7 @@ public class GamesController {
                     game.getTitle(), game.getPlatform(), game.getFormat());
             return newGame(game);
         }
-        saveGameService.saveGame(game);
+        gameService.saveGame(game);
         attributes.addFlashAttribute("message", "Jogo salvo com sucesso!");
         return new ModelAndView("redirect:/games/new");
     }
@@ -87,7 +77,7 @@ public class GamesController {
     public ModelAndView searchGames(GameFilter gameFilter) {
         System.out.println(gameFilter);
         ModelAndView mv = new ModelAndView("/games/search-games::gamesTable");
-        List<Game> gamesFound = saveGameService.filter(gameFilter);
+        List<Game> gamesFound = gameService.filter(gameFilter);
         mv.addObject("games", gamesFound);
         mv.addObject("numberOfRecords", gamesFound.size());
         return mv;

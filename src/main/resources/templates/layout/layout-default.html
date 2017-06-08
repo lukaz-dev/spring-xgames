@@ -69,7 +69,7 @@
             <nav class="aw-menu  js-menu">
                 <ul class="aw-menu__list">
 
-                    <li class="aw-menu__item" th:classappend="${dashActive} ? is-active">
+                    <li class="aw-menu__item" th:classappend="${dashActive} ? 'is-active'">
                         <a th:href="@{/home}"><i class="fa  fa-fw  fa-home"></i><span>Dashboard</span></a>
                     </li>
 
@@ -80,13 +80,13 @@
                         </a>
 
                         <ul class="aw-menu__list  aw-menu__list--sublist">
-                            <li class="aw-menu__item  aw-menu__item--link" th:classappend="${tableActive} ? is-active">
+                            <li class="aw-menu__item  aw-menu__item--link" th:classappend="${tableActive} ? 'is-active'">
                                 <a th:href="@{/games}"><i class="glyphicon glyphicon-list-alt"></i>Tabela de jogos</a>
                             </li>
-                            <li class="aw-menu__item  aw-menu__item--link" th:classappend="${newActive} ? is-active">
+                            <li class="aw-menu__item  aw-menu__item--link" th:classappend="${newActive} ? 'is-active'">
                                 <a th:href="@{/games/new}"><i class="glyphicon glyphicon-plus-sign"></i>Cadastro de jogo</a>
                             </li>
-                            <li class="aw-menu__item  aw-menu__item--link" th:classappend="${searchActive} ? is-active">
+                            <li class="aw-menu__item  aw-menu__item--link" th:classappend="${searchActive} ? 'is-active'">
                                 <a th:href="@{/games/search}"><i class="glyphicon glyphicon-search"></i>Pesquisa de jogos</a>
                             </li>
                         </ul>

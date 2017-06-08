@@ -1,9 +1,10 @@
-package com.xgames.service;
+package com.xgames.service.impl;
 
 import com.xgames.model.Game;
 import com.xgames.model.Platform;
 import com.xgames.model.filter.GameFilter;
 import com.xgames.repository.GamesRepository;
+import com.xgames.service.GameService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,9 +17,9 @@ import java.math.BigDecimal;
 import java.util.List;
 
 @Service
-public class SaveGameService {
+public class GameServiceImpl implements GameService {
 
-    private static final Logger logger = LoggerFactory.getLogger(SaveGameService.class);
+    private static final Logger logger = LoggerFactory.getLogger(GameServiceImpl.class);
 
     @Autowired
     private GamesRepository gamesRepository;
