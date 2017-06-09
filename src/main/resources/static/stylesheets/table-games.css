@@ -1,0 +1,57 @@
+#table-games {
+    font-size: 15px;
+}
+.table>tbody>tr>td {
+    vertical-align: middle;
+}
+
+.table-games-col-details {
+    width: 50px;
+    text-align: center;
+}
+.table-games-col-platform {
+    min-width: 90px;
+    text-align: center;
+}
+.table-games-col-price {
+    min-width: 90px;
+    text-align: center;
+}
+.table-games-col-stock {
+    min-width: 60px;
+    text-align: center;
+}
+.table-games-col-actions {
+    width: 100px;
+    min-width: 90px;
+    text-align: center;
+}
+#table-game-details tr td {
+    text-align: center;
+    font-weight: bold;
+    font-size: 15px;
+}
+.pagination-centered {
+    text-align: center;
+}
+.disabled {
+    pointer-events: none;
+    opacity: 0.5;
+}
+.pointer-disabled {
+    pointer-events: none;
+}
+.pagination>li>a {
+    color: #e00606;
+}
+.pagination>li>a:focus, .pagination>li>a:hover, .pagination>li>span:focus, .pagination>li>span:hover {
+    color: #980003;
+}
+.pagination>.active>a, .pagination>.active>a:focus, .pagination>.active>a:hover, .pagination>.active>span, .pagination>.active>span:focus, .pagination>.active>span:hover {
+    background-color: #980003;
+    border-color: #980003;
+}
+.input-group>span, .input-group>select {
+    font-size: 14px;
+    font-weight: bold;
+}

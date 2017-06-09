@@ -8,6 +8,7 @@ import com.xgames.service.GameService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -23,6 +24,11 @@ public class GameServiceImpl implements GameService {
 
     @Autowired
     private GamesRepository gamesRepository;
+
+    @Override
+    public Page<Game> findAllPageable(Pageable pageable) {
+        return gamesRepository.findAll(pageable);
+    }
 
     public boolean gameAlreadyExists(Game game) {
         boolean editMode = game.getCode() != null;
