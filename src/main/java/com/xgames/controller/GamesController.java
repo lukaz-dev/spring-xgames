@@ -10,6 +10,7 @@ import com.xgames.service.GameService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -47,6 +48,7 @@ public class GamesController {
     }
 
     @PostMapping("/new")
+    @CacheEvict(value = "games", allEntries = true)
     public ModelAndView saveGame(@Valid Game game, BindingResult result, RedirectAttributes attributes) {
         if (result.hasErrors()) {
             return newGame(game);
@@ -99,14 +101,11 @@ public class GamesController {
     }
 
     @DeleteMapping("/{code}")
+    @CacheEvict(value = "games", allEntries = true)
     public ModelAndView deleteGame(@PathVariable Long code) {
         logger.info("Removing game with code: {}", code);
         ModelAndView mv = new ModelAndView("/games/search-games::gamesTable");
         gamesRepository.delete(code);
-        Page<Game> gamesFound = gamesRepository.findAll(new PageRequest(0, 10,
-                new Sort(Sort.Direction.ASC, "title", "platform", "price")));
-        mv.addObject("games", gamesFound);
-        mv.addObject("numberOfRecords", gamesFound.getSize());
         return mv;
     }
 }

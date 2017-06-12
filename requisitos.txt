@@ -13,10 +13,8 @@ description
 
 #Requisitos:
 1-add nova tabela format_prices, modificar atributo format p/ List<Price> (exemplo: casadocodigo-springmvc)
-2-add cache (exemplo: casadocodigo-springmvc)
-3-criar página tabela de jogos, mostrar todos jogos, usar paginação (Pageable)
 4-Add atributo ativo (boolean)
 
-*adicionar carregamento de imagem do jogo
 *adicionar cadastro do usuário
 *adicionar segurança no final
+*adicionar carregamento de imagem do jogo
