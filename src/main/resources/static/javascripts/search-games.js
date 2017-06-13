@@ -32,9 +32,14 @@ function excluir(code) {
         showLoaderOnConfirm: true
     }, function () {
         setTimeout(function () {
+            var token = $("meta[name='_csrf']").attr("content");
+            var header = $("meta[name='_csrf_header']").attr("content");
             $.ajax({
                 url: '/games/' + code,
                 type: 'DELETE',
+                beforeSend: function (request) {
+                    request.setRequestHeader(header, token);
+                },
                 success: function (result) {
                     $('#table-games').html(result);
                 }

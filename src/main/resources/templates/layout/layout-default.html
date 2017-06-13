@@ -2,7 +2,8 @@
 <html lang="pt"
       xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
@@ -23,7 +24,7 @@
         <div class="container-fluid">
 
             <div class="navbar-header">
-                <a class="navbar-brand  hidden-xs" th:href="@{/games/search}">
+                <a class="navbar-brand  hidden-xs" th:href="@{/home}">
                     <img alt="xgames" th:src="@{/layout/images/xgames-logo.png}"/>
                 </a>
 
@@ -46,7 +47,7 @@
                             <div class="aw-logged-user">
                                 <img src="https://api.adorable.io/avatars/80/joaodascouves"
                                      width="80" height="80" alt="João das Couves" class="aw-logged-user__picture"/>
-                                <span class="aw-logged-user__name">Usuário</span>
+                                <span class="aw-logged-user__name" th:text="${#authentication.name}">Usuário</span>
                             </div>
                         </li>
                         <li role="separator" class="divider"></li>
@@ -57,7 +58,7 @@
                 </li>
 
                 <li>
-                    <a href="#"><em class="glyphicon glyphicon-log-out"></em></a>
+                    <a th:href="@{/logout}"><em class="glyphicon glyphicon-log-out"></em></a>
                 </li>
             </ul>
         </div>
@@ -83,10 +84,12 @@
                             <li class="aw-menu__item  aw-menu__item--link" th:classappend="${tableActive} ? 'is-active'">
                                 <a th:href="@{/games}"><i class="glyphicon glyphicon-list-alt"></i>Tabela de jogos</a>
                             </li>
-                            <li class="aw-menu__item  aw-menu__item--link" th:classappend="${newActive} ? 'is-active'">
+                            <li class="aw-menu__item  aw-menu__item--link" th:classappend="${newActive} ? 'is-active'"
+                                sec:authorize="hasRole('ROLE_NEW_GAME')">
                                 <a th:href="@{/games/new}"><i class="glyphicon glyphicon-plus-sign"></i>Cadastro de jogo</a>
                             </li>
-                            <li class="aw-menu__item  aw-menu__item--link" th:classappend="${searchActive} ? 'is-active'">
+                            <li class="aw-menu__item  aw-menu__item--link" th:classappend="${searchActive} ? 'is-active'"
+                                sec:authorize="hasRole('ROLE_SEARCH_GAMES')">
                                 <a th:href="@{/games/search}"><i class="glyphicon glyphicon-search"></i>Pesquisa de jogos</a>
                             </li>
                         </ul>

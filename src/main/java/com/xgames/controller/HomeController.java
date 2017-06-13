@@ -11,7 +11,7 @@ public class HomeController {
 
     @GetMapping
     public ModelAndView home() {
-        ModelAndView mv = new ModelAndView("/games/dashboard");
+        ModelAndView mv = new ModelAndView("dashboard");
         mv.addObject("dashActive", true);
         return mv;
     }
