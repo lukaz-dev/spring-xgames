@@ -3,6 +3,9 @@
     border-color: #e00606;
     font-size: 15px;
 }
+.navbar-right li:last-child {
+    margin-right: 15px;
+}
 .navbar-default .navbar-nav>li>a:focus, .navbar-default .navbar-nav>li>a:hover {
     color: #fff;
 }

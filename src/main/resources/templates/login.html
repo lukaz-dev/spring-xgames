@@ -5,14 +5,22 @@
 	  xmlns:th="http://www.thymeleaf.org"
 	  layout:decorate="~{layout/layout-simple}">
 
+<head>
+	<style>
+		.aw-layout-simple-page__container {
+			padding: 15px 0;
+		}
+	</style>
+</head>
+
 <th:block layout:fragment="content">
 
 	<form th:action="@{/login}" method="POST">
 		<div class="aw-simple-panel">
-			<img alt="logo" th:src="@{/layout/images/logo-vinho.png}"/>
+			<img alt="logo" th:src="@{/layout/images/login-logo.png}"/>
 
 			<div class="aw-simple-panel__message">
-				Por favor, faça o login.
+				<strong>Por favor, faça o login.</strong>
 			</div>
 
 			<div class="aw-simple-panel__message  is-error" th:if="${#bools.isTrue(param.error)}">

@@ -12,10 +12,9 @@ format
 description
 
 #Requisitos:
+1-adicionar cadastro do usuário
 3-add nova tabela format_prices, modificar atributo format p/ List<Price> (exemplo: casadocodigo-springmvc)
 4-Add atributo ativo (boolean)
-5-/games/search trocar post por get, via ajax
 
-*adicionar cadastro do usuário
 *adicionar segurança no final
 *adicionar carregamento de imagem do jogo
