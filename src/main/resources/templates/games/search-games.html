@@ -4,7 +4,8 @@
       xmlns:th="http://www.thymeleaf.org"
       xmlns:data="http://www.thymeleaf.org/extras/data-attribute"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{layout/layout-default}">
+      layout:decorate="~{layout/layout-default}"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta th:name="_csrf" th:content="${_csrf.token}"/>
     <meta th:name="_csrf_header" th:content="${_csrf.headerName}"/>
@@ -25,7 +26,7 @@
                 </div>
                 <div class="col-xs-2">
                     <div class="aw-page-header-controls">
-                        <a class="btn btn-primary" th:href="@{/games/new}">
+                        <a class="btn btn-primary" th:href="@{/games/new}" sec:authorize="hasAuthority('NEW_GAME')">
                             <i class="fa  fa-plus-circle"></i> <span class="hidden-xs  hidden-sm">Novo jogo</span>
                         </a>
                     </div>

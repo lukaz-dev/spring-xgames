@@ -45,7 +45,7 @@
                             <div class="aw-logged-user">
                                 <img src="https://api.adorable.io/avatars/16"
                                      width="80" height="80" alt="Avatar" class="aw-logged-user__picture"/>
-                                <span class="aw-logged-user__name" th:text="${#authentication.name}">Usuário</span>
+                                <span class="aw-logged-user__name" th:text="${#authentication.principal.user.fullName}">Usuário</span>
                             </div>
                         </li>
                         <li class="divider"></li>
@@ -86,11 +86,11 @@
                                 <a th:href="@{/games}"><i class="glyphicon glyphicon-list-alt"></i>Tabela de jogos</a>
                             </li>
                             <li class="aw-menu__item  aw-menu__item--link" th:classappend="${newActive} ? 'is-active'"
-                                sec:authorize="hasRole('ROLE_NEW_GAME')">
+                                sec:authorize="hasAuthority('NEW_GAME')">
                                 <a th:href="@{/games/new}"><i class="glyphicon glyphicon-plus-sign"></i>Cadastro de jogo</a>
                             </li>
                             <li class="aw-menu__item  aw-menu__item--link" th:classappend="${searchActive} ? 'is-active'"
-                                sec:authorize="hasRole('ROLE_SEARCH_GAMES')">
+                                sec:authorize="hasAuthority('SEARCH_GAMES')">
                                 <a th:href="@{/games/search}"><i class="glyphicon glyphicon-search"></i>Pesquisa de jogos</a>
                             </li>
                         </ul>

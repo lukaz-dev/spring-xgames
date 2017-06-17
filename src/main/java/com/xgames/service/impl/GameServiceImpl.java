@@ -32,11 +32,12 @@ public class GameServiceImpl implements GameService {
 
     public boolean gameAlreadyExists(Game game) {
         boolean editMode = game.getCode() != null;
-
         if (editMode) {
-            return gamesRepository.existsOtherGameDiferentFromThisCode(game.getTitle(), game.getPlatform(), game.getFormat(), game.getCode());
+            return gamesRepository.existsOtherGameDiferentFromThisCode(game.getTitle(),
+                    game.getPlatform(), game.getFormat(), game.getCode());
         } else {
-            return gamesRepository.existsByTitleAndPlatformAndFormat(game.getTitle(), game.getPlatform(), game.getFormat());
+            return gamesRepository.existsByTitleAndPlatformAndFormat(game.getTitle(),
+                    game.getPlatform(), game.getFormat());
         }
     }
 

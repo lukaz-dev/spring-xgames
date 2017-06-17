@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="pt"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org"
+      layout:decorate="~{layout/layout-simple}">
+
+<head>
+    <style>
+        .aw-layout-simple-page__container {
+            padding: 15px 0;
+        }
+        h1 {
+            color: #e00606;
+        }
+    </style>
+</head>
+
+<th:block layout:fragment="content">
+
+    <form th:action="@{/registration}" id="form" method="POST" autocomplete="off" th:object="${user}">
+        <div class="aw-simple-panel">
+            <h1>Formulário de cadastro</h1>
+
+            <div class="aw-simple-panel__message">
+                <strong>Por favor, Preencha os campos abaixo.</strong>
+            </div>
+
+            <div class="aw-simple-panel__box">
+                <div class="form-group  has-feedback" th:classappend="${#fields.hasErrors('name')} ? 'has-error'">
+                    <label th:errors="*{name}" class="control-label"></label>
+                    <input type="text" class="form-control  input-lg" th:field="*{name}" placeholder="Nome" autofocus/>
+                </div>
+
+                <div class="form-group  has-feedback" th:classappend="${#fields.hasErrors('lastName')} ? 'has-error'">
+                    <label th:errors="*{lastName}" class="control-label"></label>
+                    <input type="text" class="form-control  input-lg" th:field="*{lastName}" placeholder="Sobrenome"/>
+                </div>
+
+                <div class="form-group  has-feedback" th:classappend="${#fields.hasErrors('email')} ? 'has-error'">
+                    <label th:errors="*{email}" class="control-label"></label>
+                    <input type="text" class="form-control  input-lg" th:field="*{email}" placeholder="Email" autocomplete="on"/>
+                </div>
+
+                <div class="form-group  has-feedback" th:classappend="${#fields.hasErrors('password')} ? 'has-error'">
+                    <label th:errors="*{password}" class="control-label">Error</label>
+                    <label id="pass-msg-error" class="control-label"></label>
+                    <input type="password" class="form-control  input-lg" id="pass1" th:field="*{password}" placeholder="Senha"/>
+                </div>
+
+                <div class="form-group  has-feedback" th:classappend="${#fields.hasErrors('password')} ? 'has-error'">
+                    <input type="password" class="form-control  input-lg" id="pass2" placeholder="Confirmação de senha"/>
+                </div>
+
+                <div class="form-group">
+                    <button type="submit" class="btn  btn-primary  btn-lg  aw-btn-full-width">Enviar</button>
+                </div>
+            </div>
+
+            <div class="aw-simple-panel__footer"><strong>Já tem cadastro? </strong><a th:href="@{/login}">Efetue login</a>.</div>
+        </div>
+    </form>
+
+</th:block>
+
+<th:block layout:fragment="javascript-extra">
+    <script>
+    $(document).ready(function () {
+        $('#pass-msg-error').hide();
+
+        $('#form').on('submit', function (e) {
+            var pass1 = $('#pass1').val();
+            var pass2 = $('#pass2').val();
+            var ok = true;
+            if (pass1 != pass2) {
+                $('#pass-msg-error').show().html('* As senhas digitadas são diferentes').css('color', '#a94442');
+                $('#pass1').css('border-color', '#a94442');
+                $('#pass2').css('border-color', '#a94442');
+                ok = false;
+            }
+            return ok;
+        });
+    });
+    </script>
+</th:block>
+
+</html>

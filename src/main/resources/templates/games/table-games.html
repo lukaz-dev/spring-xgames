@@ -21,7 +21,7 @@
                 </div>
                 <div class="col-xs-2">
                     <div class="aw-page-header-controls">
-                        <a class="btn btn-primary" th:href="@{/games/new}" sec:authorize="hasRole('ROLE_NEW_GAME')">
+                        <a class="btn btn-primary" th:href="@{/games/new}" sec:authorize="hasAuthority('NEW_GAME')">
                             <i class="fa  fa-plus-circle"></i> <span class="hidden-xs  hidden-sm">Novo jogo</span>
                         </a>
                     </div>

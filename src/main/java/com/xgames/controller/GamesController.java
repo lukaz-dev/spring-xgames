@@ -11,9 +11,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -50,9 +47,6 @@ public class GamesController {
     @PostMapping("/new")
     @CacheEvict(value = "games", allEntries = true)
     public ModelAndView saveGame(@Valid Game game, BindingResult result, RedirectAttributes attributes) {
-        if (result.hasErrors()) {
-            return newGame(game);
-        }
         if (gameService.gameAlreadyExists(game)) {
             result.rejectValue("title", "error.game", "Já existe um jogo com o título '" +
                     game.getTitle() + "', plataforma '" + game.getPlatform().getDescription() +
@@ -60,6 +54,8 @@ public class GamesController {
             result.rejectValue("title", "error.game", "Digite outras informações!");
             logger.warn("Game with title '{}', platform '{}' and format '{}' already exists!",
                     game.getTitle(), game.getPlatform(), game.getFormat());
+        }
+        if (result.hasErrors()) {
             return newGame(game);
         }
         gameService.saveGame(game);

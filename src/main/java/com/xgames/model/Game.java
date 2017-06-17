@@ -11,10 +11,11 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 @Entity
-@Table(name = "games")
+@Table(name = "game")
 public class Game {
 
-    @Id @GeneratedValue
+    @Id
+    @GeneratedValue
     private Long code;
 
     @NotBlank
