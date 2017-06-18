@@ -12,7 +12,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -35,7 +34,7 @@ public class GamesController {
 
     @GetMapping("/new")
     public ModelAndView newGame(Game game) {
-        ModelAndView mv = new ModelAndView("/games/new-game");
+        ModelAndView mv = new ModelAndView("games/new-game");
         mv.addObject(game);
         mv.addObject("categories", Category.values());
         mv.addObject("platforms", Platform.values());
@@ -64,8 +63,9 @@ public class GamesController {
     }
 
     @GetMapping("/search")
-    public ModelAndView search(GameFilter gameFilter) {
-        ModelAndView mv = new ModelAndView("/games/search-games");
+    public ModelAndView search() {
+        ModelAndView mv = new ModelAndView("games/search-games");
+        mv.addObject(new GameFilter());
         mv.addObject("platforms", Platform.values());
         mv.addObject("searchActive", true);
         return mv;
@@ -73,8 +73,7 @@ public class GamesController {
 
     @PostMapping("/search")
     public ModelAndView searchGames(GameFilter gameFilter) {
-        System.out.println(gameFilter);
-        ModelAndView mv = new ModelAndView("/games/search-games::gamesTable");
+        ModelAndView mv = new ModelAndView("games/search-games::gamesTable");
         List<Game> gamesFound = gameService.filter(gameFilter);
         mv.addObject("games", gamesFound);
         mv.addObject("numberOfRecords", gamesFound.size());
@@ -82,11 +81,12 @@ public class GamesController {
     }
 
     @GetMapping("/search/{code}")
-    public String loadGame(@PathVariable Long code, Model model) {
+    public ModelAndView loadGame(@PathVariable Long code) {
+        ModelAndView mv = new ModelAndView("games/search-games::gameDetails");
         logger.info("Loading game details with code: {}", code);
         Game game = gamesRepository.findOne(code);
-        model.addAttribute(game);
-        return "/games/search-games::gameDetails";
+        mv.addObject(game);
+        return mv;
     }
 
     @PatchMapping("/{code}")
@@ -98,10 +98,9 @@ public class GamesController {
 
     @DeleteMapping("/{code}")
     @CacheEvict(value = "games", allEntries = true)
-    public ModelAndView deleteGame(@PathVariable Long code) {
+    public String deleteGame(@PathVariable Long code) {
         logger.info("Removing game with code: {}", code);
-        ModelAndView mv = new ModelAndView("/games/search-games::gamesTable");
         gamesRepository.delete(code);
-        return mv;
+        return "games/search-games::gamesTable";
     }
 }

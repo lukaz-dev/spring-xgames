@@ -28,7 +28,7 @@ public class GamesTableController {
     @Cacheable("games")
     public ModelAndView listGames(@PageableDefault(size = INITIAL_PAGE_SIZE,
             sort = {"title", "platform", "price"}) Pageable pageable) {
-        ModelAndView mv = new ModelAndView("/games/table-games");
+        ModelAndView mv = new ModelAndView("games/table-games");
 
         int pageSize = pageable.getPageSize();
         int pageNumber = pageable.getPageNumber() < 1 ? INITIAL_PAGE : pageable.getPageNumber() - 1;
