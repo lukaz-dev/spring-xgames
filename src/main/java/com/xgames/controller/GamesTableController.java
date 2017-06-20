@@ -1,7 +1,7 @@
 package com.xgames.controller;
 
 import com.xgames.model.Game;
-import com.xgames.model.pagination.Pager;
+import com.xgames.controller.pagination.Pager;
 import com.xgames.service.GameService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;

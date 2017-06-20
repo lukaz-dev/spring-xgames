@@ -1,5 +1,6 @@
 package com.xgames.model;
 
+import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -12,6 +13,7 @@ import java.util.Date;
 
 @Entity
 @Table(name = "game")
+@DynamicUpdate
 public class Game {
 
     @Id

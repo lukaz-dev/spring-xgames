@@ -9,13 +9,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
-import java.util.List;
 
 @Service
 public class GameServiceImpl implements GameService {
@@ -46,34 +43,32 @@ public class GameServiceImpl implements GameService {
         gamesRepository.save(game);
     }
 
-    public List<Game> filter(GameFilter gameFilter) {
-        Sort sort = new Sort(Sort.Direction.ASC, "title", "platform", "price");
-        Pageable topTen = new PageRequest(0, 10, sort);
+    public Page<Game> filter(GameFilter gameFilter, Pageable pageable) {
         String gameTitle = gameFilter.getTitle() == null ? "%" : gameFilter.getTitle();
         Platform gamePlatform = gameFilter.getPlatform();
         BigDecimal min = gameFilter.getMinPrice();
         BigDecimal max = gameFilter.getMaxPrice();
 
-        List<Game> games;
+        Page<Game> games;
 
         if (gamePlatform != null) {
             if (min != null && max != null) {
                 logger.info("Searching by title '{}', platform '{}', minPrice '{}' and maxPrice '{}'", gameTitle,
                         gamePlatform, min, max);
-                games = gamesRepository.findByTitleAndPlatformAndPrices(gameTitle, gamePlatform, min, max, topTen);
+                games = gamesRepository.findByTitleAndPlatformAndPrices(gameTitle, gamePlatform, min, max, pageable);
             } else {
                 logger.info("Searching by title '{}' and platform '{}'", gameTitle, gamePlatform);
-                games = gamesRepository.findDistinctByTitleContainingAndPlatform(gameTitle, gamePlatform, topTen);
+                games = gamesRepository.findDistinctByTitleContainingAndPlatform(gameTitle, gamePlatform, pageable);
             }
         } else if (min != null && max != null) {
             logger.info("Searching by title '{}', minPrice '{}' and maxPrice '{}'", gameTitle, min, max);
-            games = gamesRepository.findByTitleAndPrices(gameTitle, min, max, topTen);
+            games = gamesRepository.findByTitleAndPrices(gameTitle, min, max, pageable);
         } else {
             logger.info("Searching only by title '{}'", gameTitle);
-            games = gamesRepository.findByTitleContaining(gameTitle, topTen);
+            games = gamesRepository.findByTitleContaining(gameTitle, pageable);
         }
 
-        logger.info("Number of records found: " + games.size());
+        logger.info("Number of records found: " + games.getTotalElements());
         return games;
     }
 }

@@ -1,4 +1,4 @@
-package com.xgames.model.pagination;
+package com.xgames.controller.pagination;
 
 /**
  * Used to calculate span of buttons which will be displayed on a page

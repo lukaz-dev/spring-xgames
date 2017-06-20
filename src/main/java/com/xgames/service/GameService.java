@@ -5,8 +5,6 @@ import com.xgames.model.filter.GameFilter;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
-import java.util.List;
-
 public interface GameService {
 
     Page<Game> findAllPageable(Pageable pageable);
@@ -15,5 +13,5 @@ public interface GameService {
 
     void saveGame(Game game);
 
-    List<Game> filter(GameFilter gameFilter);
+    Page<Game> filter(GameFilter gameFilter, Pageable pageable);
 }
